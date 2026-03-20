@@ -1,0 +1,189 @@
+@media print {
+  body {
+    font-family: "europa", sans-serif;
+  }
+  body.theme-drammens-teater {
+    --text-color: #7D5A28;
+    --header-color: #F05A38;
+    --logo-color: #7D5A28;
+    --logo-color--faded: #1E2121;
+    --logo-opacity--faded: 0.12;
+  }
+  body.theme-union-scene {
+    --text-color: #000000;
+    --header-color: #FF4000;
+    --logo-color: #1E2121;
+    --logo-color--faded: #F37B58;
+    --logo-opacity--faded: 1;
+  }
+  #header .wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+  #header .wrapper #quick-menu,
+  #header .wrapper button[data-action=toggle-search],
+  #header .wrapper button[data-action=toggle-navigation],
+  #header .wrapper #navigation {
+    display: none;
+  }
+  #header .wrapper #branding svg {
+    width: 100px;
+  }
+  #header .wrapper #branding svg #icon #faded path {
+    fill: var(--logo-color--faded);
+    opacity: var(--logo-opacity--faded);
+  }
+  #header .wrapper #branding svg #icon #highlighted path {
+    fill: var(--logo-color);
+  }
+  #header .wrapper #branding svg #label path {
+    fill: var(--logo-color);
+  }
+  #global-notification,
+  #search,
+  button[data-action=toggle-cart],
+  #cart {
+    display: none;
+  }
+  .container #breadcrumbs {
+    display: none;
+  }
+  body.archive .container #content .wrapper #actions {
+    display: none;
+  }
+  body.archive .container #content .wrapper h1 {
+    color: var(--header-color);
+  }
+  body.archive .container #content .wrapper .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    color: var(--text-color);
+  }
+  body.archive .container #content .wrapper .grid .tease {
+    border: 1px solid var(--text-color);
+    break-inside: avoid;
+  }
+  body.archive .container #content .wrapper .grid .tease:not(.tease-event) {
+    display: none;
+  }
+  body.archive .container #content .wrapper .grid .tease figure {
+    aspect-ratio: 1/1;
+    background-size: contain;
+    margin: 0;
+  }
+  body.archive .container #content .wrapper .grid .tease figure img {
+    object-fit: cover;
+    width: 100%;
+    display: block;
+  }
+  body.archive .container #content .wrapper .grid .tease figure .sale-status {
+    display: none !important;
+  }
+  body.archive .container #content .wrapper .grid .tease .meta {
+    font-size: 0.35cm;
+  }
+  body.archive .container #content .wrapper .grid .tease .meta .sale-status-and-venue {
+    padding: 5px;
+    border-top: 1px solid var(--text-color);
+    border-bottom: 1px solid var(--text-color);
+  }
+  body.archive .container #content .wrapper .grid .tease .meta .sale-status-and-venue .sale-status {
+    display: none;
+  }
+  body.archive .container #content .wrapper .grid .tease .meta .date {
+    padding: 5px;
+    border-bottom: 1px solid var(--text-color);
+  }
+  body.archive .container #content .wrapper .grid .tease .title {
+    padding: 10px 5px;
+  }
+  body.archive .container #content .wrapper .grid .tease .title h3 {
+    margin: 0;
+    font-size: 0.45cm;
+  }
+  body.archive .container #content .wrapper .grid .tease .title p {
+    margin: 0;
+    font-size: 0.35cm;
+  }
+  body.archive .container #content .wrapper .grid .pagination {
+    display: none;
+  }
+  body.single-event .container #content {
+    margin-top: 20px;
+  }
+  body.single-event .container #content > .wrapper {
+    display: grid;
+    grid-template-areas: "title image" "body image" "body purchase" "body meta" "body ." "body .";
+    column-gap: 50px;
+    grid-template-columns: auto 30%;
+    overflow: hidden;
+  }
+  body.single-event .container #content > .wrapper #title {
+    grid-area: title;
+  }
+  body.single-event .container #content > .wrapper #title h1 {
+    color: var(--header-color);
+    margin-top: 0;
+  }
+  body.single-event .container #content > .wrapper #image {
+    grid-area: image;
+    margin: 0;
+    overflow: hidden;
+    aspect-ratio: 1/1;
+  }
+  body.single-event .container #content > .wrapper #image img {
+    display: block;
+    object-fit: contain;
+    height: 100%;
+  }
+  body.single-event .container #content > .wrapper #body {
+    grid-area: body;
+  }
+  body.single-event .container #content > .wrapper #body #shows p {
+    margin: 0;
+  }
+  body.single-event .container #content > .wrapper #body #shows p a {
+    display: none;
+  }
+  body.single-event .container #content > .wrapper #purchase {
+    grid-area: purchase;
+  }
+  body.single-event .container #content > .wrapper #purchase a {
+    display: none;
+  }
+  body.single-event .container #content > .wrapper #meta {
+    grid-area: meta;
+    text-align: left;
+    border-collapse: collapse;
+  }
+  body.single-event .container #content > .wrapper #meta tbody tr th {
+    padding: 0;
+  }
+  body.single-event .container #content > .wrapper #categories,
+  body.single-event .container #content > .wrapper #tags,
+  body.single-event .container #content > .wrapper #similar-events,
+  body.single-event .container #content > .wrapper button[data-action=print] {
+    display: none;
+  }
+  body.single-event .container #similar-events,
+  body.single-event .container .external-similar-productions {
+    display: none;
+  }
+  #footer #brand, #footer #content, #footer #collaborators {
+    display: none;
+  }
+  #footer #print-footer {
+    display: block;
+    margin-block: 30px 0;
+  }
+  #footer #print-footer .wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  #cmplz-manage-consent {
+    display: none !important;
+  }
+}
+
+/*# sourceMappingURL=print.css.map */
