@@ -1,389 +1,960 @@
 <!DOCTYPE html>
 <html lang="no">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drammen Scener - Drammens råeste lokaler!</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drammen Scener — To unike scener. Uendelige muligheter.</title>
+  <meta name="description" content="Lei Drammens Teater eller Union Scene til konferanse, fest, messe eller kulturarrangement. Se lokaler, priser og send forespørsel." />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EventVenue",
+    "name": "Drammen Scener",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Øvre Torggate 17",
+      "addressLocality": "Drammen",
+      "postalCode": "3017",
+      "addressCountry": "NO"
+    },
+    "telephone": "+4732213100",
+    "url": "https://www.drammenscener.no"
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0e0d0b; --paper: #f5f0e8; --warm-off: #faf7f2;
+      --gold: #c9a84c; --gold-lt: #e2c97e; --gold-dim: #7a5f25;
+      --rust: #8b3a2a; --stone: #3d3830; --mist: #b8b0a0; --charcoal: #1c1a16;
+      --ff-display: 'Cormorant Garamond', Georgia, serif;
+      --ff-body: 'DM Sans', sans-serif;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--ff-body); background: var(--ink); color: var(--paper); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: var(--ff-body); border: none; background: none; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--charcoal); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 40px; }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    @keyframes shimmer { 0% { background-position:-200% center; } 100% { background-position:200% center; } }
+    .reveal { opacity:0; transform:translateY(24px); transition:opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    /* NAV */
+    .nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:22px 40px; display:flex; align-items:center; justify-content:space-between; transition:all 0.4s ease; }
+    .nav.scrolled { background:rgba(14,13,11,0.93); backdrop-filter:blur(16px); padding:14px 40px; border-bottom:1px solid rgba(201,168,76,0.1); }
+    .nav-logo .wordmark { font-family:var(--ff-display); font-size:1.2rem; font-weight:500; letter-spacing:0.04em; color:var(--paper); display:block; line-height:1; }
+    .nav-logo .sub { font-size:0.58rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); }
+    .nav-links { display:flex; gap:32px; align-items:center; list-style:none; }
+    .nav-links a { font-size:0.74rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--mist); transition:color 0.2s; position:relative; }
+    .nav-links a::after { content:''; position:absolute; left:0; bottom:-3px; width:100%; height:1px; background:var(--gold); transform:scaleX(0); transform-origin:left; transition:transform 0.3s var(--ease-out); }
+    .nav-links a:hover { color:var(--paper); }
+    .nav-links a:hover::after { transform:scaleX(1); }
+    .nav-cta { font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; padding:9px 22px; border:1px solid var(--gold); color:var(--gold); border-radius:2px; transition:background 0.25s,color 0.25s; }
+    .nav-cta:hover { background:var(--gold); color:var(--ink); }
+    .hamburger { display:none; flex-direction:column; gap:5px; padding:4px; }
+    .hamburger span { display:block; width:22px; height:1.5px; background:var(--paper); transition:all 0.3s; }
+    .mobile-nav { display:none; position:fixed; inset:0; background:rgba(14,13,11,0.97); z-index:99; flex-direction:column; align-items:center; justify-content:center; gap:28px; }
+    .mobile-nav.open { display:flex; animation:fadeIn 0.25s; }
+    .mobile-nav a { font-family:var(--ff-display); font-size:2.2rem; font-weight:300; color:var(--paper); transition:color 0.2s; }
+    .mobile-nav a:hover { color:var(--gold); }
+
+    /* HERO */
+    .hero { position:relative; min-height:100vh; display:flex; align-items:flex-end; padding-bottom:88px; overflow:hidden; }
+    .hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse 80% 60% at 65% 40%, rgba(201,168,76,0.08) 0%, transparent 60%), linear-gradient(160deg, #1a1610 0%, #0e0d0b 50%, #130f09 100%); }
+    .hero-bg::before { content:''; position:absolute; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"); opacity:0.5; pointer-events:none; }
+    .spotlight { position:absolute; border-radius:50%; filter:blur(90px); pointer-events:none; }
+    .sp1 { width:500px; height:500px; top:-80px; right:8%; background:radial-gradient(circle,rgba(201,168,76,0.1),transparent 70%); animation:fadeIn 2s ease; }
+    .sp2 { width:280px; height:560px; bottom:-60px; left:12%; background:radial-gradient(circle,rgba(139,58,42,0.09),transparent 70%); animation:fadeIn 2.5s ease; }
+    .hero-content { position:relative; z-index:2; max-width:1240px; margin:0 auto; padding:0 40px; width:100%; }
+    .hero-eyebrow { display:flex; align-items:center; gap:16px; margin-bottom:24px; animation:fadeUp 0.8s 0.2s var(--ease-out) both; }
+    .hero-eyebrow .line { width:36px; height:1px; background:var(--gold); }
+    .hero-eyebrow span { font-size:0.65rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); }
+    .hero-title { font-family:var(--ff-display); font-size:clamp(3.4rem,7.5vw,7rem); font-weight:300; line-height:0.95; color:var(--paper); animation:fadeUp 0.8s 0.32s var(--ease-out) both; }
+    .hero-title em { font-style:italic; color:var(--gold-lt); }
+    .hero-title .l2 { display:block; padding-left:11vw; margin-top:0.08em; }
+    .hero-sub { margin-top:28px; font-size:1rem; font-weight:300; color:var(--mist); max-width:460px; line-height:1.65; animation:fadeUp 0.8s 0.46s var(--ease-out) both; }
+    .hero-actions { margin-top:44px; display:flex; gap:18px; flex-wrap:wrap; animation:fadeUp 0.8s 0.6s var(--ease-out) both; }
+    .btn-primary { display:inline-flex; align-items:center; gap:10px; font-size:0.76rem; letter-spacing:0.14em; text-transform:uppercase; padding:15px 34px; background:var(--gold); color:var(--ink); font-weight:500; border-radius:2px; transition:background 0.25s,transform 0.2s; position:relative; overflow:hidden; }
+    .btn-primary::before { content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent); background-size:200%; opacity:0; transition:opacity 0.3s; }
+    .btn-primary:hover::before { opacity:1; animation:shimmer 0.7s; }
+    .btn-primary:hover { background:var(--gold-lt); transform:translateY(-2px); }
+    .btn-ghost { display:inline-flex; align-items:center; gap:10px; font-size:0.76rem; letter-spacing:0.14em; text-transform:uppercase; padding:15px 34px; border:1px solid rgba(245,240,232,0.22); color:var(--paper); border-radius:2px; transition:border-color 0.25s,background 0.25s; }
+    .btn-ghost:hover { border-color:var(--paper); background:rgba(245,240,232,0.05); }
+    .hero-stats { position:absolute; right:40px; bottom:88px; display:flex; flex-direction:column; gap:24px; animation:fadeIn 1s 0.9s ease both; }
+    .hero-stat .num { font-family:var(--ff-display); font-size:2.2rem; font-weight:300; color:var(--gold-lt); line-height:1; text-align:right; }
+    .hero-stat .lbl { font-size:0.6rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--mist); text-align:right; margin-top:2px; }
+    .hero-scroll { position:absolute; left:40px; bottom:36px; display:flex; align-items:center; gap:10px; animation:fadeIn 1s 1.2s ease both; }
+    .hero-scroll .vl { width:1px; height:36px; background:linear-gradient(to bottom,transparent,var(--mist)); }
+    .hero-scroll span { font-size:0.58rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--mist); writing-mode:vertical-rl; }
+
+    /* SECTION HEADERS */
+    .section-eyebrow { font-size:0.63rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; display:block; }
+    .section-title { font-family:var(--ff-display); font-size:clamp(2rem,4.5vw,3.6rem); font-weight:300; line-height:1.1; color:var(--paper); }
+    .section-title em { font-style:italic; color:var(--gold-lt); }
+
+    /* VENUES */
+    .venues { padding:130px 0 0; }
+    .venues-header { text-align:center; margin-bottom:72px; }
+    .venue-split { display:grid; grid-template-columns:1fr 1fr; position:relative; }
+    .venue-split::after { content:''; position:absolute; top:8%; bottom:8%; left:50%; width:1px; background:linear-gradient(to bottom,transparent,rgba(201,168,76,0.18),transparent); }
+    .venue-card { position:relative; height:580px; overflow:hidden; cursor:default; }
+    .venue-bg { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; transition:transform 0.6s var(--ease-out); }
+    .venue-card-t .venue-bg { background:radial-gradient(ellipse 70% 50% at 50% 30%,rgba(201,168,76,0.16) 0%,transparent 60%), linear-gradient(170deg,#1e1a10 0%,#120f0a 100%); }
+    .venue-card-u .venue-bg { background:radial-gradient(ellipse 70% 50% at 50% 40%,rgba(80,50,30,0.28) 0%,transparent 60%), linear-gradient(170deg,#18140f 0%,#0d0c0a 100%); }
+    .venue-card:hover .venue-bg { transform:scale(1.04); }
+    .venue-card::before { content:''; position:absolute; inset:0; z-index:1; }
+    .venue-card-t::before { background:linear-gradient(165deg,rgba(201,168,76,0.03) 0%,rgba(14,13,11,0.72) 55%,rgba(14,13,11,0.9) 100%); }
+    .venue-card-u::before { background:linear-gradient(165deg,rgba(139,58,42,0.03) 0%,rgba(14,13,11,0.72) 55%,rgba(14,13,11,0.9) 100%); }
+    .venue-illus { width:65%; max-width:320px; opacity:0.3; transition:opacity 0.5s; }
+    .venue-card:hover .venue-illus { opacity:0.48; }
+    .venue-info { position:absolute; bottom:0; left:0; right:0; z-index:2; padding:36px 40px; }
+    .venue-tag { display:inline-block; font-size:0.56rem; letter-spacing:0.2em; text-transform:uppercase; padding:4px 11px; border:1px solid rgba(201,168,76,0.4); color:var(--gold); border-radius:1px; margin-bottom:14px; }
+    .venue-card-u .venue-tag { border-color:rgba(232,190,140,0.35); color:#e8be8c; }
+    .venue-name { font-family:var(--ff-display); font-size:2.2rem; font-weight:300; color:var(--paper); line-height:1.05; margin-bottom:9px; }
+    .venue-desc { font-size:0.82rem; color:var(--mist); line-height:1.55; max-width:320px; margin-bottom:20px; }
+    .venue-caps { display:flex; gap:22px; margin-bottom:24px; }
+    .venue-cap .val { font-family:var(--ff-display); font-size:1.35rem; font-weight:400; color:var(--gold-lt); line-height:1; }
+    .venue-card-u .venue-cap .val { color:#e8be8c; }
+    .venue-cap .key { font-size:0.58rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--mist); margin-top:2px; }
+    .venue-link { display:inline-flex; align-items:center; gap:8px; font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold); transition:gap 0.2s; }
+    .venue-card-u .venue-link { color:#e8be8c; }
+    .venue-link:hover { gap:14px; }
+
+    /* ROOMS */
+    .rooms { padding:130px 0; }
+    .rooms-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:56px; flex-wrap:wrap; gap:20px; }
+    .rooms-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(201,168,76,0.07); }
+    .room-tile { background:var(--charcoal); padding:32px 28px; border:1px solid transparent; transition:background 0.3s,border-color 0.3s; }
+    .room-tile:hover { background:#201e18; border-color:rgba(201,168,76,0.14); }
+    .room-venue { font-size:0.56rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold-dim); margin-bottom:9px; }
+    .room-tile.union .room-venue { color:#7a5030; }
+    .room-name { font-family:var(--ff-display); font-size:1.35rem; font-weight:400; color:var(--paper); margin-bottom:14px; line-height:1.15; }
+    .room-specs { display:flex; flex-direction:column; gap:5px; margin-bottom:16px; }
+    .room-spec { display:flex; justify-content:space-between; align-items:center; font-size:0.72rem; padding-bottom:4px; border-bottom:1px solid rgba(255,255,255,0.05); }
+    .room-spec .sk { font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(184,176,160,0.55); }
+    .room-spec .sv { font-weight:500; color:var(--paper); }
+    .room-tech { margin-top:14px; padding-top:14px; border-top:1px solid rgba(201,168,76,0.09); }
+    .room-tech-t { font-size:0.57rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold-dim); margin-bottom:7px; }
+    .room-tech-list { display:flex; flex-wrap:wrap; gap:5px; }
+    .tech-tag { font-size:0.58rem; padding:2px 7px; background:rgba(201,168,76,0.06); border:1px solid rgba(201,168,76,0.13); color:rgba(201,168,76,0.65); border-radius:1px; }
+    .room-price { margin-top:14px; font-size:0.7rem; color:var(--gold); }
+
+    /* PACKAGES */
+    .packages { padding:0 0 130px; }
+    .packages-header { text-align:center; margin-bottom:60px; }
+    .pkg-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+    .pkg-card { border:1px solid rgba(201,168,76,0.12); border-radius:4px; padding:40px 34px; background:rgba(28,26,22,0.5); position:relative; overflow:hidden; transition:border-color 0.3s,transform 0.3s; }
+    .pkg-card:hover { border-color:rgba(201,168,76,0.32); transform:translateY(-4px); }
+    .pkg-card.featured { border-color:rgba(201,168,76,0.38); background:rgba(201,168,76,0.025); }
+    .pkg-card.featured::before { content:'Populær'; position:absolute; top:0; right:0; font-size:0.56rem; letter-spacing:0.15em; text-transform:uppercase; background:var(--gold); color:var(--ink); padding:5px 13px; font-weight:500; }
+    .pkg-icon { width:36px; height:36px; margin-bottom:22px; color:var(--gold); }
+    .pkg-name { font-family:var(--ff-display); font-size:1.65rem; font-weight:300; color:var(--paper); margin-bottom:8px; }
+    .pkg-tagline { font-size:0.8rem; color:var(--mist); line-height:1.5; margin-bottom:24px; }
+    .pkg-price-band { display:flex; align-items:baseline; gap:5px; padding:12px 0; border-top:1px solid rgba(255,255,255,0.06); border-bottom:1px solid rgba(255,255,255,0.06); margin-bottom:22px; }
+    .pkg-from { font-size:0.62rem; letter-spacing:0.1em; color:var(--mist); text-transform:uppercase; }
+    .pkg-price { font-family:var(--ff-display); font-size:1.9rem; font-weight:400; color:var(--gold-lt); }
+    .pkg-unit { font-size:0.7rem; color:var(--mist); }
+    .pkg-includes { list-style:none; display:flex; flex-direction:column; gap:9px; margin-bottom:28px; }
+    .pkg-includes li { display:flex; align-items:flex-start; gap:9px; font-size:0.8rem; color:var(--mist); line-height:1.4; }
+    .pkg-includes li::before { content:'✓'; color:var(--gold); font-size:0.68rem; flex-shrink:0; margin-top:1px; }
+
+    /* PRICING */
+    .pricing { padding:96px 0; border-top:1px solid rgba(201,168,76,0.07); }
+    .pricing-note { text-align:center; font-size:0.76rem; color:var(--mist); margin-top:20px; }
+    .price-table { width:100%; border-collapse:collapse; margin-top:44px; }
+    .price-table th { font-size:0.6rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold-dim); text-align:left; padding:0 18px 14px; border-bottom:1px solid rgba(201,168,76,0.14); }
+    .price-table td { padding:16px 18px; font-size:0.83rem; border-bottom:1px solid rgba(255,255,255,0.04); vertical-align:middle; }
+    .price-table tr:hover td { background:rgba(201,168,76,0.022); }
+    .price-table .rc { color:var(--paper); font-weight:500; }
+    .price-table .pc { color:var(--gold-lt); font-family:var(--ff-display); font-size:1.02rem; }
+    .price-table .nc { color:var(--mist); font-size:0.73rem; }
+
+    /* TESTIMONIALS */
+    .testimonials { padding:110px 0; background:linear-gradient(to bottom,rgba(201,168,76,0.015),transparent); }
+    .testimonials-header { text-align:center; margin-bottom:64px; }
+    .testi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+    .testi-card { padding:36px; border:1px solid rgba(201,168,76,0.1); border-radius:3px; background:rgba(28,26,22,0.4); transition:border-color 0.3s; }
+    .testi-card:hover { border-color:rgba(201,168,76,0.24); }
+    .q-mark { font-family:var(--ff-display); font-size:4.5rem; color:var(--gold); opacity:0.18; line-height:0.8; margin-bottom:14px; display:block; }
+    .testi-text { font-family:var(--ff-display); font-size:1.1rem; font-weight:300; font-style:italic; color:var(--paper); line-height:1.6; margin-bottom:24px; }
+    .testi-author { display:flex; align-items:center; gap:12px; }
+    .t-avatar { width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg,var(--gold-dim),var(--stone)); display:flex; align-items:center; justify-content:center; font-family:var(--ff-display); font-size:0.95rem; color:var(--gold-lt); flex-shrink:0; }
+    .t-name { font-size:0.8rem; font-weight:500; color:var(--paper); }
+    .t-role { font-size:0.68rem; color:var(--mist); }
+    .partners { margin-top:72px; padding-top:44px; border-top:1px solid rgba(255,255,255,0.06); display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+    .partners-lbl { font-size:0.58rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--mist); margin-right:6px; white-space:nowrap; }
+    .p-pill { padding:7px 16px; border:1px solid rgba(255,255,255,0.1); border-radius:100px; font-size:0.7rem; color:var(--mist); transition:border-color 0.2s,color 0.2s; }
+    .p-pill:hover { border-color:rgba(201,168,76,0.3); color:var(--paper); }
+
+    /* FAQ */
+    .faq { padding:110px 0; }
+    .faq-header { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start; margin-bottom:64px; }
+    .faq-intro { font-size:0.95rem; color:var(--mist); line-height:1.7; margin-top:16px; }
+    .faq-list { border-top:1px solid rgba(255,255,255,0.07); }
+    .faq-item { border-bottom:1px solid rgba(255,255,255,0.06); }
+    .faq-q { width:100%; text-align:left; display:flex; justify-content:space-between; align-items:center; padding:20px 0; font-size:0.9rem; color:var(--paper); transition:color 0.2s; gap:14px; }
+    .faq-q:hover { color:var(--gold-lt); }
+    .faq-tog { width:20px; height:20px; border:1px solid rgba(201,168,76,0.25); border-radius:50%; flex-shrink:0; position:relative; transition:background 0.25s,border-color 0.25s; }
+    .faq-tog::before, .faq-tog::after { content:''; position:absolute; left:50%; top:50%; background:var(--gold); transition:transform 0.25s,opacity 0.25s; }
+    .faq-tog::before { width:9px; height:1px; transform:translate(-50%,-50%); }
+    .faq-tog::after  { width:1px; height:9px; transform:translate(-50%,-50%); }
+    .faq-item.open .faq-tog { background:rgba(201,168,76,0.13); border-color:var(--gold); }
+    .faq-item.open .faq-tog::after { transform:translate(-50%,-50%) rotate(90deg); opacity:0; }
+    .faq-ans { max-height:0; overflow:hidden; transition:max-height 0.4s var(--ease-out); }
+    .faq-ans-inner { padding:0 0 20px; font-size:0.83rem; color:var(--mist); line-height:1.7; max-width:620px; }
+
+    /* CONTACT */
+    .contact { padding:96px 0 130px; position:relative; overflow:hidden; }
+    .contact::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 55% 75% at 70% 50%,rgba(201,168,76,0.035) 0%,transparent 70%); pointer-events:none; }
+    .contact-grid { display:grid; grid-template-columns:1fr 1.4fr; gap:88px; align-items:start; }
+    .contact-left { position:sticky; top:100px; }
+    .contact-heading { font-family:var(--ff-display); font-size:clamp(2.4rem,3.8vw,3.2rem); font-weight:300; line-height:1.1; margin-bottom:22px; }
+    .contact-blurb { font-size:0.88rem; color:var(--mist); line-height:1.7; margin-bottom:36px; }
+    .contact-persons { display:flex; flex-direction:column; gap:16px; }
+    .c-person { display:flex; align-items:center; gap:14px; padding:14px; border:1px solid rgba(255,255,255,0.06); border-radius:4px; transition:border-color 0.2s; }
+    .c-person:hover { border-color:rgba(201,168,76,0.2); }
+    .c-avatar { width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,#2a2218,#1a1510); border:1px solid rgba(201,168,76,0.18); display:flex; align-items:center; justify-content:center; font-family:var(--ff-display); font-size:1rem; color:var(--gold-lt); flex-shrink:0; }
+    .c-name { font-size:0.82rem; font-weight:500; color:var(--paper); }
+    .c-role { font-size:0.68rem; color:var(--mist); }
+    .c-email { font-size:0.68rem; color:var(--gold); margin-top:1px; }
+    .contact-meta { margin-top:28px; display:flex; flex-direction:column; gap:9px; }
+    .c-meta-row { display:flex; align-items:center; gap:9px; font-size:0.8rem; color:var(--mist); }
+    .c-meta-row svg { opacity:0.6; flex-shrink:0; }
+
+    /* FORM */
+    .c-form { background:rgba(28,26,22,0.5); border:1px solid rgba(201,168,76,0.12); border-radius:6px; padding:44px; }
+    .form-progress { display:flex; gap:5px; margin-bottom:32px; }
+    .fp-step { height:2px; flex:1; background:rgba(255,255,255,0.1); border-radius:1px; transition:background 0.3s; }
+    .fp-step.active { background:var(--gold); }
+    .form-step { display:none; }
+    .form-step.active { display:block; animation:fadeUp 0.4s var(--ease-out); }
+    .step-lbl { font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+    .step-title { font-family:var(--ff-display); font-size:1.55rem; font-weight:300; color:var(--paper); margin-bottom:26px; }
+    .form-group { margin-bottom:18px; }
+    .form-label { display:block; font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--mist); margin-bottom:7px; }
+    .form-input, .form-select, .form-textarea { width:100%; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:3px; padding:12px 14px; font-family:var(--ff-body); font-size:0.86rem; color:var(--paper); transition:border-color 0.25s,background 0.25s; outline:none; -webkit-appearance:none; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color:rgba(201,168,76,0.48); background:rgba(255,255,255,0.06); }
+    .form-select option { background:#1c1a16; }
+    .form-textarea { resize:vertical; min-height:92px; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .evt-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+    .evt-btn { padding:11px 8px; border:1px solid rgba(255,255,255,0.1); border-radius:3px; font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--mist); background:transparent; transition:all 0.2s; text-align:center; }
+    .evt-btn:hover, .evt-btn.sel { border-color:var(--gold); color:var(--gold); background:rgba(201,168,76,0.06); }
+    .guest-wrap { margin-top:7px; }
+    .g-display { text-align:right; font-family:var(--ff-display); font-size:1.7rem; color:var(--gold-lt); margin-bottom:3px; line-height:1; }
+    .g-display span { font-size:0.68rem; color:var(--mist); font-family:var(--ff-body); }
+    input[type="range"] { width:100%; -webkit-appearance:none; height:2px; background:linear-gradient(to right, var(--gold) var(--val,15%), rgba(255,255,255,0.1) var(--val,15%)); border-radius:1px; outline:none; }
+    input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:13px; height:13px; border-radius:50%; background:var(--gold); cursor:pointer; box-shadow:0 0 0 3px rgba(201,168,76,0.18); }
+    .form-nav { display:flex; justify-content:space-between; align-items:center; margin-top:28px; }
+    .form-back { font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--mist); transition:color 0.2s; }
+    .form-back:hover { color:var(--paper); }
+    .btn-next { display:inline-flex; align-items:center; gap:7px; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; padding:12px 26px; background:var(--gold); color:var(--ink); font-weight:500; border-radius:2px; transition:background 0.2s,transform 0.2s; }
+    .btn-next:hover { background:var(--gold-lt); transform:translateY(-1px); }
+    .form-success { text-align:center; padding:44px 0; display:none; }
+    .s-icon { width:52px; height:52px; border-radius:50%; background:rgba(201,168,76,0.1); border:1px solid var(--gold); display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:1.3rem; }
+    .s-title { font-family:var(--ff-display); font-size:1.9rem; font-weight:300; color:var(--paper); margin-bottom:10px; }
+    .s-text { font-size:0.83rem; color:var(--mist); line-height:1.6; }
+
+    /* FOOTER */
+    footer { background:var(--charcoal); border-top:1px solid rgba(201,168,76,0.09); padding:68px 0 32px; }
+    .footer-top { display:grid; grid-template-columns:2fr 1fr 1fr 1.4fr; gap:52px; margin-bottom:52px; }
+    .f-brand .wm { font-family:var(--ff-display); font-size:1.4rem; font-weight:400; color:var(--paper); display:block; }
+    .f-brand .sub { font-size:0.58rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:16px; }
+    .f-brand p { font-size:0.8rem; color:var(--mist); line-height:1.65; max-width:270px; }
+    .f-certs { display:flex; gap:8px; margin-top:16px; }
+    .f-cert { font-size:0.56rem; letter-spacing:0.12em; text-transform:uppercase; padding:4px 9px; border:1px solid rgba(201,168,76,0.18); color:rgba(201,168,76,0.55); border-radius:1px; }
+    .f-col h4 { font-size:0.62rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:18px; }
+    .f-col ul { list-style:none; display:flex; flex-direction:column; gap:9px; }
+    .f-col li a { font-size:0.8rem; color:var(--mist); transition:color 0.2s; }
+    .f-col li a:hover { color:var(--paper); }
+    .f-contact-info { display:flex; flex-direction:column; gap:12px; }
+    .f-cr .lbl { font-size:0.56rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold-dim); display:block; }
+    .f-cr .val { font-size:0.8rem; color:var(--mist); }
+    .footer-bottom { padding-top:24px; border-top:1px solid rgba(255,255,255,0.05); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+    .footer-bottom p, .footer-legal a { font-size:0.68rem; color:rgba(184,176,160,0.45); }
+    .footer-legal { display:flex; gap:22px; }
+    .footer-legal a:hover { color:var(--mist); }
+
+    /* RESPONSIVE */
+    @media (max-width:1100px) {
+      .rooms-grid { grid-template-columns:repeat(2,1fr); }
+      .pkg-grid { grid-template-columns:1fr 1fr; }
+      .footer-top { grid-template-columns:1fr 1fr; }
+    }
+    @media (max-width:900px) {
+      .venue-split { grid-template-columns:1fr; }
+      .venue-card { height:400px; }
+      .testi-grid { grid-template-columns:1fr; }
+      .contact-grid { grid-template-columns:1fr; gap:44px; }
+      .contact-left { position:static; }
+      .faq-header { grid-template-columns:1fr; gap:20px; }
+    }
+    @media (max-width:768px) {
+      .nav-links, .nav-cta { display:none; }
+      .hamburger { display:flex; }
+      .nav, .nav.scrolled { padding:16px 24px; }
+      .container { padding:0 24px; }
+      .hero-content { padding:0 24px; }
+      .hero-stats { display:none; }
+      .hero-title .l2 { padding-left:0; }
+      .rooms-grid { grid-template-columns:1fr; }
+      .pkg-grid { grid-template-columns:1fr; }
+      .c-form { padding:24px 20px; }
+      .form-row { grid-template-columns:1fr; }
+      .evt-grid { grid-template-columns:repeat(2,1fr); }
+      .footer-top { grid-template-columns:1fr; gap:36px; }
+      .footer-bottom { flex-direction:column; align-items:flex-start; }
+      .price-table { font-size:0.76rem; }
+      .price-table th, .price-table td { padding:10px 10px; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Header / Navigation -->
-    <header class="header">
-        <div class="header-container">
-            <a href="#" class="logo">
-                <span class="logo-text">DRAMMEN SCENER</span>
-            </a>
-            <nav class="main-nav">
-                <ul class="nav-list">
-                    <li><a href="#lokaler">Våre lokaler og saler</a></li>
-                    <li><a href="#pakker">Våre pakker</a></li>
-                    <li><a href="#meny">Mat- og drikkemeny</a></li>
-                    <li class="has-dropdown">
-                        <a href="#om-oss">Om oss <span class="material-icons">expand_more</span></a>
-                        <ul class="dropdown">
-                            <li><a href="#om-oss">Om oss</a></li>
-                            <li><a href="#miljo">Miljøfyrtårn</a></li>
-                            <li><a href="#ansatte">Ansatte</a></li>
-                            <li><a href="#historie">Historie</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#kontakt" class="btn-contact">Kontakt oss</a></li>
-                </ul>
-            </nav>
-            <button class="mobile-menu-btn">
-                <span class="material-icons">menu</span>
-            </button>
-        </div>
-    </header>
 
-    <!-- Related Sites Bar -->
-    <div class="related-sites">
-        <div class="container">
-            <a href="#">Drammens Teater</a>
-            <a href="#">Union Scene</a>
-        </div>
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">
+    <span class="wordmark">Drammen Scener</span>
+    <span class="sub">Drammens Teater &amp; Union Scene</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#venues">Lokaler</a></li>
+    <li><a href="#rooms">Saler</a></li>
+    <li><a href="#packages">Pakker</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact" class="nav-cta">Send forespørsel</a></li>
+  </ul>
+  <button class="hamburger" id="ham" aria-label="Meny"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-nav" id="mobNav">
+  <a href="#venues" class="mob-lnk">Lokaler</a>
+  <a href="#rooms" class="mob-lnk">Saler</a>
+  <a href="#packages" class="mob-lnk">Pakker</a>
+  <a href="#faq" class="mob-lnk">FAQ</a>
+  <a href="#contact" class="mob-lnk" style="color:var(--gold)">Send forespørsel →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="spotlight sp1"></div>
+  <div class="spotlight sp2"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="line"></span>
+      <span>Drammen · Øvre Torggate 17</span>
     </div>
+    <h1 class="hero-title">
+      To unike scener.<br>
+      <em class="l2">Uendelige muligheter.</em>
+    </h1>
+    <p class="hero-sub">Fra storslagen teatersal til rå industriscene — vi leverer rammene for arrangementet som huskes.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Send forespørsel <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#rooms" class="btn-ghost">Se alle saler</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">8</div><div class="lbl">Unike saler</div></div>
+    <div class="hero-stat"><div class="num">1200</div><div class="lbl">Maks kap.</div></div>
+    <div class="hero-stat"><div class="num">100+</div><div class="lbl">Arr./år</div></div>
+  </div>
+  <div class="hero-scroll"><div class="vl"></div><span>Scroll</span></div>
+</section>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-video-bg">
-            <div class="hero-overlay"></div>
+<!-- VENUES -->
+<section class="venues" id="venues">
+  <div class="container">
+    <div class="venues-header reveal">
+      <span class="section-eyebrow">Velg din scene</span>
+      <h2 class="section-title">Klassisk eleganse<br>eller <em>industriell karakter</em></h2>
+    </div>
+  </div>
+  <div class="venue-split">
+    <div class="venue-card venue-card-t">
+      <div class="venue-bg">
+        <svg class="venue-illus" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 0 C40 60,30 120,50 165 C60 185,50 225,60 265 L0 265 L0 0Z" fill="rgba(201,168,76,0.22)"/>
+          <path d="M380 0 C360 60,370 120,350 165 C340 185,350 225,340 265 L400 265 L400 0Z" fill="rgba(201,168,76,0.22)"/>
+          <rect x="60" y="220" width="280" height="7" rx="2" fill="rgba(201,168,76,0.38)"/>
+          <path d="M80 20 Q200 -28 320 20 L320 200 Q200 240 80 200Z" stroke="rgba(201,168,76,0.28)" stroke-width="2" fill="none"/>
+          <circle cx="120" cy="30" r="5.5" fill="rgba(255,230,150,0.45)"/>
+          <circle cx="200" cy="20" r="5.5" fill="rgba(255,230,150,0.45)"/>
+          <circle cx="280" cy="30" r="5.5" fill="rgba(255,230,150,0.45)"/>
+          <path d="M120 35 L100 205 L140 205Z" fill="rgba(255,230,150,0.04)"/>
+          <path d="M200 25 L178 205 L222 205Z" fill="rgba(255,230,150,0.04)"/>
+          <path d="M280 35 L260 205 L300 205Z" fill="rgba(255,230,150,0.04)"/>
+          <g opacity="0.18"><rect x="90" y="240" width="220" height="4" rx="1" fill="rgba(201,168,76,1)"/><rect x="96" y="250" width="208" height="4" rx="1" fill="rgba(201,168,76,1)"/><rect x="102" y="260" width="196" height="4" rx="1" fill="rgba(201,168,76,1)"/></g>
+        </svg>
+      </div>
+      <div class="venue-info">
+        <span class="venue-tag">Drammens Teater</span>
+        <h3 class="venue-name">Klassisk<br>Eleganse</h3>
+        <p class="venue-desc">En historisk scene med moderne teknikk. Perfekt for konferanser, gallamiddager og premierer.</p>
+        <div class="venue-caps">
+          <div class="venue-cap"><div class="val">450</div><div class="key">Teater</div></div>
+          <div class="venue-cap"><div class="val">100</div><div class="key">Middag</div></div>
+          <div class="venue-cap"><div class="val">1200</div><div class="key">Stående</div></div>
         </div>
-        <div class="hero-content">
-            <h1>Drammens råeste lokaler!</h1>
-            <div class="hero-buttons">
-                <a href="#lokaler" class="btn btn-primary">Saler</a>
-                <a href="#pakker" class="btn btn-secondary">Pakker</a>
-                <a href="#meny" class="btn btn-secondary">Menyer</a>
-            </div>
+        <a href="#rooms" class="venue-link">Utforsk saler <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+    <div class="venue-card venue-card-u">
+      <div class="venue-bg">
+        <svg class="venue-illus" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="40" y="20" width="15" height="260" fill="rgba(200,160,100,0.14)"/>
+          <rect x="178" y="20" width="15" height="260" fill="rgba(200,160,100,0.1)"/>
+          <rect x="345" y="20" width="15" height="260" fill="rgba(200,160,100,0.14)"/>
+          <rect x="20" y="40" width="360" height="7" fill="rgba(200,160,100,0.14)"/>
+          <rect x="20" y="96" width="360" height="3" fill="rgba(200,160,100,0.07)"/>
+          <rect x="60" y="200" width="280" height="11" rx="2" fill="rgba(200,160,100,0.28)"/>
+          <line x1="100" y1="40" x2="100" y2="100" stroke="rgba(200,160,100,0.28)" stroke-width="1"/>
+          <circle cx="100" cy="108" r="9" fill="rgba(200,160,100,0.18)" stroke="rgba(200,160,100,0.38)" stroke-width="1"/>
+          <line x1="200" y1="40" x2="200" y2="90" stroke="rgba(200,160,100,0.28)" stroke-width="1"/>
+          <circle cx="200" cy="98" r="9" fill="rgba(200,160,100,0.18)" stroke="rgba(200,160,100,0.38)" stroke-width="1"/>
+          <line x1="300" y1="40" x2="300" y2="100" stroke="rgba(200,160,100,0.28)" stroke-width="1"/>
+          <circle cx="300" cy="108" r="9" fill="rgba(200,160,100,0.18)" stroke="rgba(200,160,100,0.38)" stroke-width="1"/>
+          <g opacity="0.06" fill="rgba(200,160,100,1)">
+            <rect x="62" y="128" width="28" height="11" rx="1"/><rect x="96" y="128" width="28" height="11" rx="1"/>
+            <rect x="76" y="145" width="28" height="11" rx="1"/><rect x="110" y="145" width="28" height="11" rx="1"/>
+          </g>
+        </svg>
+      </div>
+      <div class="venue-info">
+        <span class="venue-tag">Union Scene</span>
+        <h3 class="venue-name">Industriell<br>Karakter</h3>
+        <p class="venue-desc">Et råt industribygg med sjel og fleksibilitet. Ideelt for messer, konserter og firmafester.</p>
+        <div class="venue-caps">
+          <div class="venue-cap"><div class="val">800</div><div class="key">Stående</div></div>
+          <div class="venue-cap"><div class="val">400</div><div class="key">Teater</div></div>
+          <div class="venue-cap"><div class="val">250</div><div class="key">Middag</div></div>
         </div>
-    </section>
+        <a href="#rooms" class="venue-link" style="color:#e8be8c">Utforsk saler <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Introduction -->
-    <section class="intro">
-        <div class="container">
-            <h2>Opplev de mest imponerende lokalene i Drammen hos Drammen Scener!</h2>
-            <p>Vi tilbyr unike lokaler for alle typer arrangementer - fra intime sammenkomster til store konferanser og konserter.</p>
+<!-- ROOMS -->
+<section class="rooms" id="rooms">
+  <div class="container">
+    <div class="rooms-header reveal">
+      <div>
+        <span class="section-eyebrow">Alle saler</span>
+        <h2 class="section-title">Finn riktig sal<br><em>for ditt arrangement</em></h2>
+      </div>
+      <a href="#contact" class="btn-ghost">Be om visning</a>
+    </div>
+    <div class="rooms-grid">
+      <div class="room-tile reveal">
+        <div class="room-venue">Drammens Teater</div>
+        <div class="room-name">Hovedscenen</div>
+        <div class="room-specs">
+          <div class="room-spec"><span class="sk">Teater</span><span class="sv">450 pers.</span></div>
+          <div class="room-spec"><span class="sk">Middag</span><span class="sv">100 pers.</span></div>
+          <div class="room-spec"><span class="sk">Stående</span><span class="sv">1 200 pers.</span></div>
+          <div class="room-spec"><span class="sk">Scene</span><span class="sv">14 × 10 m</span></div>
         </div>
-    </section>
-
-    <!-- Venues Section -->
-    <section id="lokaler" class="venues">
-        <div class="container">
-            <h2 class="section-title">Våre lokaler</h2>
-            <div class="venues-grid">
-                <div class="venue-card">
-                    <div class="venue-image" style="background-color: #2D37B4;">
-                        <span class="venue-placeholder">Hovedscenen (Teatret)</span>
-                    </div>
-                    <div class="venue-info">
-                        <h3>Hovedscenen (Teatret)</h3>
-                        <p class="venue-capacity"><span class="material-icons">people</span> 100-450 personer</p>
-                        <p>Den klassiske hovedscenen i Drammens Teater med historisk atmosfære.</p>
-                        <a href="#" class="btn btn-small">Les mer</a>
-                    </div>
-                </div>
-
-                <div class="venue-card">
-                    <div class="venue-image" style="background-color: #FF4000;">
-                        <span class="venue-placeholder">Hovedscenen (Union)</span>
-                    </div>
-                    <div class="venue-info">
-                        <h3>Hovedscenen (Union)</h3>
-                        <p class="venue-capacity"><span class="material-icons">people</span> 120-1200 personer</p>
-                        <p>Vår største scene med plass til store konserter og arrangementer.</p>
-                        <a href="#" class="btn btn-small">Les mer</a>
-                    </div>
-                </div>
-
-                <div class="venue-card">
-                    <div class="venue-image" style="background-color: #1E2121;">
-                        <span class="venue-placeholder">Bakgården</span>
-                    </div>
-                    <div class="venue-info">
-                        <h3>Bakgården</h3>
-                        <p class="venue-capacity"><span class="material-icons">people</span> 350-750 personer</p>
-                        <p>Utendørs arena med unik atmosfære for sommerfester og konserter.</p>
-                        <a href="#" class="btn btn-small">Les mer</a>
-                    </div>
-                </div>
-
-                <div class="venue-card">
-                    <div class="venue-image" style="background-color: #FFE1CD;">
-                        <span class="venue-placeholder dark-text">Teatersalongene</span>
-                    </div>
-                    <div class="venue-info">
-                        <h3>Teatersalongene</h3>
-                        <p class="venue-capacity"><span class="material-icons">people</span> 40-100 personer</p>
-                        <p>Elegante rom perfekt for møter, workshops og mindre arrangementer.</p>
-                        <a href="#" class="btn btn-small">Les mer</a>
-                    </div>
-                </div>
-
-                <div class="venue-card">
-                    <div class="venue-image" style="background-color: #2D37B4;">
-                        <span class="venue-placeholder">Multisal 2</span>
-                    </div>
-                    <div class="venue-info">
-                        <h3>Multisal 2</h3>
-                        <p class="venue-capacity"><span class="material-icons">people</span> 70-200 personer</p>
-                        <p>Fleksibel sal som kan tilpasses ulike behov og arrangementstyper.</p>
-                        <a href="#" class="btn btn-small">Les mer</a>
-                    </div>
-                </div>
-
-                <div class="venue-card">
-                    <div class="venue-image" style="background-color: #FF4000;">
-                        <span class="venue-placeholder">Studioscenen</span>
-                    </div>
-                    <div class="venue-info">
-                        <h3>Studioscenen</h3>
-                        <p class="venue-capacity"><span class="material-icons">people</span> 182 personer</p>
-                        <p>Intim scene perfekt for mindre konserter og forestillinger.</p>
-                        <a href="#" class="btn btn-small">Les mer</a>
-                    </div>
-                </div>
-
-                <div class="venue-card">
-                    <div class="venue-image" style="background-color: #1E2121;">
-                        <span class="venue-placeholder">Glassfoajéen</span>
-                    </div>
-                    <div class="venue-info">
-                        <h3>Glassfoajéen</h3>
-                        <p class="venue-capacity"><span class="material-icons">people</span> 80-450 personer</p>
-                        <p>Moderne glasslokale med utsikt og fantastisk lysinnslipp.</p>
-                        <a href="#" class="btn btn-small">Les mer</a>
-                    </div>
-                </div>
-
-                <div class="venue-card">
-                    <div class="venue-image" style="background-color: #FFE1CD;">
-                        <span class="venue-placeholder dark-text">Centralen</span>
-                    </div>
-                    <div class="venue-info">
-                        <h3>Centralen</h3>
-                        <p class="venue-capacity"><span class="material-icons">people</span> 20-150 personer</p>
-                        <p>Sjarmerende lokale med historisk preg for intime arrangementer.</p>
-                        <a href="#" class="btn btn-small">Les mer</a>
-                    </div>
-                </div>
-            </div>
+        <div class="room-tech"><div class="room-tech-t">Teknisk utstyr</div><div class="room-tech-list"><span class="tech-tag">Profesjonell lyd</span><span class="tech-tag">Scenelys</span><span class="tech-tag">HD-projektor</span><span class="tech-tag">WiFi</span><span class="tech-tag">360° tour</span></div></div>
+        <div class="room-price">Fra kr 18 000 / dag</div>
+      </div>
+      <div class="room-tile reveal">
+        <div class="room-venue">Drammens Teater</div>
+        <div class="room-name">Teaterkafeen</div>
+        <div class="room-specs">
+          <div class="room-spec"><span class="sk">Middag</span><span class="sv">80 pers.</span></div>
+          <div class="room-spec"><span class="sk">Stående</span><span class="sv">120 pers.</span></div>
+          <div class="room-spec"><span class="sk">Møte</span><span class="sv">40 pers.</span></div>
         </div>
-    </section>
-
-    <!-- Packages Section -->
-    <section id="pakker" class="packages">
-        <div class="container">
-            <h2 class="section-title">Våre pakker</h2>
-            <div class="packages-grid">
-                <div class="package-card">
-                    <div class="package-icon">
-                        <span class="material-icons">wb_sunny</span>
-                    </div>
-                    <h3>Sommerfest</h3>
-                    <p>Den perfekte sommerfesten med uteservering, grillmat og god stemning.</p>
-                    <a href="#" class="btn btn-outline">Se pakken</a>
-                </div>
-
-                <div class="package-card">
-                    <div class="package-icon">
-                        <span class="material-icons">celebration</span>
-                    </div>
-                    <h3>Eventer</h3>
-                    <p>Skreddersydde løsninger for alle typer arrangementer og feiringer.</p>
-                    <a href="#" class="btn btn-outline">Se pakken</a>
-                </div>
-
-                <div class="package-card">
-                    <div class="package-icon">
-                        <span class="material-icons">business_center</span>
-                    </div>
-                    <h3>Konferansepakke</h3>
-                    <p>Profesjonelle fasiliteter for møter, seminarer og konferanser.</p>
-                    <a href="#" class="btn btn-outline">Se pakken</a>
-                </div>
-
-                <div class="package-card">
-                    <div class="package-icon">
-                        <span class="material-icons">store</span>
-                    </div>
-                    <h3>Messe</h3>
-                    <p>Store lokaler perfekt for messer, utstillinger og produktlanseringer.</p>
-                    <a href="#" class="btn btn-outline">Se pakken</a>
-                </div>
-
-                <div class="package-card featured">
-                    <div class="package-icon">
-                        <span class="material-icons">ac_unit</span>
-                    </div>
-                    <h3>Julebord</h3>
-                    <p>Komplett julebordsopplevelse med tradisjonell mat og festlig stemning.</p>
-                    <a href="#" class="btn btn-primary">Se pakken</a>
-                </div>
-            </div>
+        <div class="room-tech"><div class="room-tech-t">Teknisk utstyr</div><div class="room-tech-list"><span class="tech-tag">AV-utstyr</span><span class="tech-tag">WiFi</span><span class="tech-tag">Naturlys</span></div></div>
+        <div class="room-price">Fra kr 6 500 / dag</div>
+      </div>
+      <div class="room-tile reveal">
+        <div class="room-venue">Drammens Teater</div>
+        <div class="room-name">Studioscenen</div>
+        <div class="room-specs">
+          <div class="room-spec"><span class="sk">Teater</span><span class="sv">120 pers.</span></div>
+          <div class="room-spec"><span class="sk">Stående</span><span class="sv">180 pers.</span></div>
+          <div class="room-spec"><span class="sk">Scene</span><span class="sv">8 × 6 m</span></div>
+          <div class="room-spec"><span class="sk">Format</span><span class="sv">Amfiteater</span></div>
         </div>
-    </section>
-
-    <!-- Menu Section -->
-    <section id="meny" class="menu-section">
-        <div class="container">
-            <h2 class="section-title">Mat- og drikkemeny</h2>
-            <div class="menu-intro">
-                <p>Vi tilbyr et bredt utvalg av mat og drikke til alle arrangementer. Fra enkle kaffepakker til komplette middagsmenyer.</p>
-            </div>
-            <div class="menu-categories">
-                <div class="menu-category">
-                    <span class="material-icons">restaurant</span>
-                    <h3>Middagsmenyer</h3>
-                    <p>Tre- og fireretter tilpasset ditt arrangement</p>
-                </div>
-                <div class="menu-category">
-                    <span class="material-icons">tapas</span>
-                    <h3>Fingermat</h3>
-                    <p>Perfekt for mingling og nettverksarrangementer</p>
-                </div>
-                <div class="menu-category">
-                    <span class="material-icons">local_bar</span>
-                    <h3>Drikkepakker</h3>
-                    <p>Fra mineralvann til eksklusive vinpakker</p>
-                </div>
-                <div class="menu-category">
-                    <span class="material-icons">coffee</span>
-                    <h3>Konferanseservering</h3>
-                    <p>Kaffe, te og pausemat</p>
-                </div>
-            </div>
-            <a href="#" class="btn btn-primary btn-large">Se full meny</a>
+        <div class="room-tech"><div class="room-tech-t">Teknisk utstyr</div><div class="room-tech-list"><span class="tech-tag">Scenelys</span><span class="tech-tag">Lyd</span><span class="tech-tag">WiFi</span></div></div>
+        <div class="room-price">Fra kr 7 500 / dag</div>
+      </div>
+      <div class="room-tile reveal">
+        <div class="room-venue">Drammens Teater</div>
+        <div class="room-name">Glassfoajéen</div>
+        <div class="room-specs">
+          <div class="room-spec"><span class="sk">Stående</span><span class="sv">200 pers.</span></div>
+          <div class="room-spec"><span class="sk">Buffet</span><span class="sv">100 pers.</span></div>
+          <div class="room-spec"><span class="sk">Format</span><span class="sv">Glasshall</span></div>
         </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="om-oss" class="about">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-content">
-                    <h2>Om Drammen Scener</h2>
-                    <p>Drammen Scener er Drammens fremste tilbyder av lokaler for arrangementer av alle slag. Vi har over 100 års erfaring med å skape uforglemmelige opplevelser.</p>
-                    <p>Vår portefølje inkluderer alt fra historiske teatersaler til moderne konferanselokaler - alle med førsteklasses service og fasiliteter.</p>
-                    <div class="about-features">
-                        <div class="feature">
-                            <span class="material-icons">verified</span>
-                            <span>Miljøfyrtårn-sertifisert</span>
-                        </div>
-                        <div class="feature">
-                            <span class="material-icons">accessibility</span>
-                            <span>Universell utforming</span>
-                        </div>
-                        <div class="feature">
-                            <span class="material-icons">support_agent</span>
-                            <span>Profesjonell service</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image">
-                    <div class="image-placeholder">
-                        <span class="material-icons">theater_comedy</span>
-                    </div>
-                </div>
-            </div>
+        <div class="room-tech"><div class="room-tech-t">Teknisk utstyr</div><div class="room-tech-list"><span class="tech-tag">AV</span><span class="tech-tag">Naturlys</span><span class="tech-tag">WiFi</span></div></div>
+        <div class="room-price">Fra kr 5 000 / dag</div>
+      </div>
+      <div class="room-tile union reveal">
+        <div class="room-venue">Union Scene</div>
+        <div class="room-name">Hovedscene Union</div>
+        <div class="room-specs">
+          <div class="room-spec"><span class="sk">Stående</span><span class="sv">800 pers.</span></div>
+          <div class="room-spec"><span class="sk">Teater</span><span class="sv">400 pers.</span></div>
+          <div class="room-spec"><span class="sk">Scene</span><span class="sv">16 × 12 m</span></div>
+          <div class="room-spec"><span class="sk">Takhøyde</span><span class="sv">8 m</span></div>
         </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="kontakt" class="contact">
-        <div class="container">
-            <h2 class="section-title">Kontakt oss</h2>
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h3>Ta kontakt for et uforpliktende tilbud</h3>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <span class="material-icons">location_on</span>
-                            <p>Øvre Torggate 17, 3017 Drammen</p>
-                        </div>
-                        <div class="contact-item">
-                            <span class="material-icons">phone</span>
-                            <p>32 21 31 00</p>
-                        </div>
-                        <div class="contact-item">
-                            <span class="material-icons">email</span>
-                            <p>post@drammenscener.no</p>
-                        </div>
-                    </div>
-                </div>
-                <form class="contact-form">
-                    <div class="form-group">
-                        <label for="name">Navn</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">E-post</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Telefon</label>
-                        <input type="tel" id="phone" name="phone">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Melding</label>
-                        <textarea id="message" name="message" rows="4" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-large">Send forespørsel</button>
-                </form>
-            </div>
+        <div class="room-tech"><div class="room-tech-t">Teknisk utstyr</div><div class="room-tech-list"><span class="tech-tag">D&B Audiotechnik</span><span class="tech-tag">LED-rigg</span><span class="tech-tag">4K-projektor</span><span class="tech-tag">Backstage</span></div></div>
+        <div class="room-price">Fra kr 22 000 / dag</div>
+      </div>
+      <div class="room-tile union reveal">
+        <div class="room-venue">Union Scene</div>
+        <div class="room-name">Multisal</div>
+        <div class="room-specs">
+          <div class="room-spec"><span class="sk">Teater</span><span class="sv">150 pers.</span></div>
+          <div class="room-spec"><span class="sk">Stående</span><span class="sv">250 pers.</span></div>
+          <div class="room-spec"><span class="sk">U-form</span><span class="sv">60 pers.</span></div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <h4>Drammen Scener</h4>
-                    <p>Øvre Torggate 17<br>3017 Drammen</p>
-                    <p>Org.nr: 894922672</p>
-                    <p>Tlf: 32 21 31 00</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Hurtiglenker</h4>
-                    <ul>
-                        <li><a href="#">Hjem</a></li>
-                        <li><a href="#lokaler">Lokaler</a></li>
-                        <li><a href="#meny">Meny</a></li>
-                        <li><a href="#pakker">Pakker</a></li>
-                        <li><a href="#ansatte">Ansatte</a></li>
-                        <li><a href="#">Ledige stillinger</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Hovedsponsor</h4>
-                    <div class="sponsor-logo">
-                        <span>Sparebanken Øst</span>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h4>Partnere</h4>
-                    <div class="partners">
-                        <span>Aass Bryggeri</span>
-                        <span>Næringsforeningen</span>
-                        <span>Matfikseren</span>
-                        <span>Catapult Film</span>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Drammen Scener. Alle rettigheter reservert.</p>
-                <div class="footer-links">
-                    <a href="#">Personvern</a>
-                    <a href="#">Tilgjengelighet</a>
-                    <a href="#miljo">Miljøfyrtårn</a>
-                </div>
-            </div>
+        <div class="room-tech"><div class="room-tech-t">Teknisk utstyr</div><div class="room-tech-list"><span class="tech-tag">Lyd</span><span class="tech-tag">Lys</span><span class="tech-tag">Skjerm</span><span class="tech-tag">WiFi</span></div></div>
+        <div class="room-price">Fra kr 9 500 / dag</div>
+      </div>
+      <div class="room-tile union reveal">
+        <div class="room-venue">Union Scene</div>
+        <div class="room-name">Bakgården</div>
+        <div class="room-specs">
+          <div class="room-spec"><span class="sk">Stående</span><span class="sv">500 pers.</span></div>
+          <div class="room-spec"><span class="sk">Format</span><span class="sv">Utendørs</span></div>
+          <div class="room-spec"><span class="sk">Sesong</span><span class="sv">Mai – Sept</span></div>
         </div>
-    </footer>
+        <div class="room-tech"><div class="room-tech-t">Teknisk utstyr</div><div class="room-tech-list"><span class="tech-tag">Utendørslyd</span><span class="tech-tag">Belysning</span><span class="tech-tag">Strøm</span></div></div>
+        <div class="room-price">Fra kr 8 000 / dag</div>
+      </div>
+      <div class="room-tile union reveal">
+        <div class="room-venue">Union Scene</div>
+        <div class="room-name">Centralen</div>
+        <div class="room-specs">
+          <div class="room-spec"><span class="sk">Middag</span><span class="sv">120 pers.</span></div>
+          <div class="room-spec"><span class="sk">Stående</span><span class="sv">200 pers.</span></div>
+          <div class="room-spec"><span class="sk">Stil</span><span class="sv">Industribar</span></div>
+        </div>
+        <div class="room-tech"><div class="room-tech-t">Teknisk utstyr</div><div class="room-tech-list"><span class="tech-tag">AV</span><span class="tech-tag">Bar inkl.</span><span class="tech-tag">WiFi</span></div></div>
+        <div class="room-price">Fra kr 5 500 / dag</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script src="script.js"></script>
+<!-- PACKAGES -->
+<section class="packages" id="packages">
+  <div class="container">
+    <div class="packages-header reveal">
+      <span class="section-eyebrow">Pakker</span>
+      <h2 class="section-title">Alt inkludert —<br><em>null stress</em></h2>
+    </div>
+    <div class="pkg-grid">
+      <div class="pkg-card reveal">
+        <svg class="pkg-icon" viewBox="0 0 40 40" fill="none"><rect x="6" y="10" width="28" height="22" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M6 16h28" stroke="currentColor" stroke-width="1.5"/><circle cx="13" cy="13" r="1.5" fill="currentColor"/><circle cx="20" cy="13" r="1.5" fill="currentColor"/></svg>
+        <div class="pkg-name">Konferanse</div>
+        <div class="pkg-tagline">Profesjonell gjennomføring fra morgen til kveld. Mat, teknikk og dedikert support inkludert.</div>
+        <div class="pkg-price-band"><span class="pkg-from">Fra</span><span class="pkg-price">kr 595</span><span class="pkg-unit">/ pers.</span></div>
+        <ul class="pkg-includes">
+          <li>Konferansesal hele dagen</li>
+          <li>Kaffe, te og vann hele dagen</li>
+          <li>Lunsj (klassisk buffet)</li>
+          <li>Alt teknisk utstyr inkludert</li>
+          <li>Dedikert eventkoordinator</li>
+        </ul>
+        <a href="#contact" class="btn-primary">Be om tilbud</a>
+      </div>
+      <div class="pkg-card featured reveal">
+        <svg class="pkg-icon" viewBox="0 0 40 40" fill="none"><path d="M20 6L24.5 15.5L35 17L27.5 24L29.5 34.5L20 30L10.5 34.5L12.5 24L5 17L15.5 15.5L20 6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <div class="pkg-name">Julebord</div>
+        <div class="pkg-tagline">En minneverdig kveld med god mat, feststemning og alt på plass. Tilpasses din gruppe.</div>
+        <div class="pkg-price-band"><span class="pkg-from">Fra</span><span class="pkg-price">kr 895</span><span class="pkg-unit">/ pers.</span></div>
+        <ul class="pkg-includes">
+          <li>3-retters julemiddag</li>
+          <li>Velkomstdrink</li>
+          <li>Pyntet og dekorert sal</li>
+          <li>DJ eller live musikk (valgfritt)</li>
+          <li>Garderobe og vakter</li>
+          <li>Dedikert eventkoordinator</li>
+        </ul>
+        <a href="#contact" class="btn-primary">Be om tilbud</a>
+      </div>
+      <div class="pkg-card reveal">
+        <svg class="pkg-icon" viewBox="0 0 40 40" fill="none"><path d="M20 6 C28 6, 34 10, 34 16 C34 26, 20 36, 20 36 C20 36, 6 26, 6 16 C6 10, 12 6, 20 6Z" stroke="currentColor" stroke-width="1.5"/></svg>
+        <div class="pkg-name">Sommerfest</div>
+        <div class="pkg-tagline">Bakgården åpner seg for sommer, sol og god stemning. Firmafesten alle snakker om.</div>
+        <div class="pkg-price-band"><span class="pkg-from">Fra</span><span class="pkg-price">kr 745</span><span class="pkg-unit">/ pers.</span></div>
+        <ul class="pkg-includes">
+          <li>Bakgård med scenebruk</li>
+          <li>BBQ- og minglingbuffet</li>
+          <li>Bar-oppsett</li>
+          <li>Lyd og lys utendørs</li>
+          <li>Dedikert eventkoordinator</li>
+        </ul>
+        <a href="#contact" class="btn-primary">Be om tilbud</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING TABLE -->
+<section class="pricing">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <span class="section-eyebrow">Prisguide</span>
+      <h2 class="section-title">Transparente<br><em>priser</em></h2>
+    </div>
+    <div class="reveal">
+      <table class="price-table">
+        <thead>
+          <tr><th>Sal</th><th>Sted</th><th>Kapasitet</th><th>Leie fra</th><th>Merknad</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="rc">Hovedscenen</td><td style="color:var(--gold-dim);font-size:0.72rem">Drammens Teater</td><td>1 200 stående</td><td class="pc">kr 18 000</td><td class="nc">Teknikk tillegg</td></tr>
+          <tr><td class="rc">Studioscenen</td><td style="color:var(--gold-dim);font-size:0.72rem">Drammens Teater</td><td>180 stående</td><td class="pc">kr 7 500</td><td class="nc">Amfiteater inkl.</td></tr>
+          <tr><td class="rc">Glassfoajéen</td><td style="color:var(--gold-dim);font-size:0.72rem">Drammens Teater</td><td>200 stående</td><td class="pc">kr 5 000</td><td class="nc">Minglingareal</td></tr>
+          <tr><td class="rc">Teaterkafeen</td><td style="color:var(--gold-dim);font-size:0.72rem">Drammens Teater</td><td>120 stående</td><td class="pc">kr 6 500</td><td class="nc">AV inkludert</td></tr>
+          <tr><td class="rc">Hovedscene Union</td><td style="color:#7a5030;font-size:0.72rem">Union Scene</td><td>800 stående</td><td class="pc">kr 22 000</td><td class="nc">D&B lyd inkl.</td></tr>
+          <tr><td class="rc">Multisal</td><td style="color:#7a5030;font-size:0.72rem">Union Scene</td><td>250 stående</td><td class="pc">kr 9 500</td><td class="nc">Fleksibel rigg</td></tr>
+          <tr><td class="rc">Bakgården</td><td style="color:#7a5030;font-size:0.72rem">Union Scene</td><td>500 stående</td><td class="pc">kr 8 000</td><td class="nc">Mai–september</td></tr>
+          <tr><td class="rc">Centralen</td><td style="color:#7a5030;font-size:0.72rem">Union Scene</td><td>200 stående</td><td class="pc">kr 5 500</td><td class="nc">Bar inkludert</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="pricing-note reveal">Prisene er veiledende dagspriser eks. mva. Helg, kveld og teknikkpakker avtales separat. <a href="#contact" style="color:var(--gold);border-bottom:1px solid rgba(201,168,76,0.3)">Kontakt oss for tilbud →</a></p>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <div class="testimonials-header reveal">
+      <span class="section-eyebrow">Referanser</span>
+      <h2 class="section-title">Arrangører som<br><em>har valgt oss</em></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <span class="q-mark">"</span>
+        <p class="testi-text">Vi hadde 300 gjester på årskonferansen og alt gikk knirkefritt. Teknisk utstyr, mat og koordinering var upåklagelig fra start til slutt.</p>
+        <div class="testi-author"><div class="t-avatar">KL</div><div><div class="t-name">Kari Larsen</div><div class="t-role">Kommunikasjonsdirektør, Næringsforeningen</div></div></div>
+      </div>
+      <div class="testi-card reveal">
+        <span class="q-mark">"</span>
+        <p class="testi-text">Union Scene var den perfekte rammen for vår produktlansering. Bakgården ble en hit — gjestene er fortsatt begeistrerte måneder etter.</p>
+        <div class="testi-author"><div class="t-avatar">TO</div><div><div class="t-name">Thomas Olsen</div><div class="t-role">CEO, Tech Drammen AS</div></div></div>
+      </div>
+      <div class="testi-card reveal">
+        <span class="q-mark">"</span>
+        <p class="testi-text">Drammens Teater til julebord er en helt annen klasse. Gjestene syntes det var mye bedre enn et vanlig hotell — vi er allerede booket inn igjen.</p>
+        <div class="testi-author"><div class="t-avatar">MH</div><div><div class="t-name">Marte Haugen</div><div class="t-role">HR-leder, Drammen Energi</div></div></div>
+      </div>
+    </div>
+    <div class="partners reveal">
+      <span class="partners-lbl">Samarbeidspartnere</span>
+      <span class="p-pill">Øst Catering</span>
+      <span class="p-pill">Aass Bryggeri</span>
+      <span class="p-pill">NFDR</span>
+      <span class="p-pill">Matfikseren</span>
+      <span class="p-pill">Catapult</span>
+      <span class="p-pill">Miljøfyrtårn ✓</span>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="faq-header">
+      <div class="reveal">
+        <span class="section-eyebrow">Vanlige spørsmål</span>
+        <h2 class="section-title">Alt du<br><em>lurer på</em></h2>
+        <p class="faq-intro">Finner du ikke svaret? Ring oss på <a href="tel:+4732213100" style="color:var(--gold)">32 21 31 00</a> eller send en e-post til <a href="mailto:post@drammenscener.no" style="color:var(--gold)">post@drammenscener.no</a>.</p>
+      </div>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-q">Hva inkluderer lokalleien?<span class="faq-tog"></span></button>
+        <div class="faq-ans"><div class="faq-ans-inner">Leieprisen inkluderer salen i avtalt periode, grunnleggende teknisk utstyr (PA-anlegg, prosjektor/skjerm, mikrofoner), møblering i standardoppsett og tilgang til garderobe og fellesareal. Catering, teknisk bemanning og spesialrigging avtales separat.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Tilbyr dere catering og mat?<span class="faq-tog"></span></button>
+        <div class="faq-ans"><div class="faq-ans-inner">Ja — vi har egne mat- og drikkemenyer med alt fra enkel kaffepause til 3-retters middag. Vi samarbeider med lokale leverandører inkludert Aass Bryggeri og Matfikseren. Catering bestilles separat og tilpasses budsjett og smak.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Hvor tidlig bør vi booke?<span class="faq-tog"></span></button>
+        <div class="faq-ans"><div class="faq-ans-inner">For konferanser og større arrangementer anbefaler vi 3–6 måneder. Julebord-sesongen er særlig populær og bør bookes i august/september. Send en forespørsel, så sjekker vi ledige datoer for deg.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Hva er avbestillingsreglene?<span class="faq-tog"></span></button>
+        <div class="faq-ans"><div class="faq-ans-inner">Avbestilling inntil 60 dager før er kostnadsfritt. Mellom 60 og 30 dager faktureres 50 % av leiesum. Inntil 30 dager faktureres fullt. Ta kontakt tidlig dersom noe endrer seg — vi forsøker alltid å finne en løsning.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Er det parkering i nærheten?<span class="faq-tog"></span></button>
+        <div class="faq-ans"><div class="faq-ans-inner">Ja, det er offentlige parkeringsplasser rett ved Øvre Torggate 17. Drammen sentrum er enkelt tilgjengelig med tog (5 min fra Oslo S). Ladepunkter for elbil finnes i Bragernes Torg parkeringshus, 200 m unna.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Er lokalene universelt utformet?<span class="faq-tog"></span></button>
+        <div class="faq-ans"><div class="faq-ans-inner">Begge venues har rullestolramper, heis, teleslynge og tilpassede toaletter. Vi er sertifisert med Tilgjengelighetsmerket. Gi oss beskjed om spesielle behov — vi tilrettelegger gjerne.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-left reveal">
+        <span class="section-eyebrow">Kontakt oss</span>
+        <h2 class="contact-heading">La oss gjøre ditt arrangement<br><em style="color:var(--gold-lt)">uforglemmelig</em></h2>
+        <p class="contact-blurb">Fortell oss hva du planlegger, så sender vi et uforpliktende tilbud innen én arbeidsdag.</p>
+        <div class="contact-persons">
+          <div class="c-person">
+            <div class="c-avatar">MK</div>
+            <div>
+              <div class="c-name">Mari Kristiansen</div>
+              <div class="c-role">Konferanse &amp; bedrift</div>
+              <div class="c-email">konferanse@drammenscener.no</div>
+            </div>
+          </div>
+          <div class="c-person">
+            <div class="c-avatar">GO</div>
+            <div>
+              <div class="c-name">Guro Olsen</div>
+              <div class="c-role">Fester &amp; kulturarrangementer</div>
+              <div class="c-email">fest@drammenscener.no</div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-meta">
+          <div class="c-meta-row"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 2h3l1.5 4-2 1.5A10 10 0 009 12.5L10.5 11l4 1.5V16a14 14 0 01-14-14" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg><a href="tel:+4732213100" style="color:inherit">32 21 31 00</a></div>
+          <div class="c-meta-row"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M1 5l7 5 7-5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg><a href="mailto:post@drammenscener.no" style="color:inherit">post@drammenscener.no</a></div>
+          <div class="c-meta-row"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 1a5 5 0 015 5c0 3.5-5 9-5 9S3 9.5 3 6a5 5 0 015-5z" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="6" r="1.5" stroke="currentColor" stroke-width="1.2"/></svg>Øvre Torggate 17, 3017 Drammen</div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="c-form">
+          <div class="form-progress">
+            <div class="fp-step active" id="fp1"></div>
+            <div class="fp-step" id="fp2"></div>
+            <div class="fp-step" id="fp3"></div>
+          </div>
+          <!-- Step 1 -->
+          <div class="form-step active" id="fs1">
+            <div class="step-lbl">Steg 1 av 3</div>
+            <div class="step-title">Hva planlegger du?</div>
+            <div class="form-group">
+              <div class="evt-grid">
+                <button type="button" class="evt-btn" data-t="Konferanse">🎤 Konferanse</button>
+                <button type="button" class="evt-btn" data-t="Julebord">🎄 Julebord</button>
+                <button type="button" class="evt-btn" data-t="Sommerfest">☀️ Sommerfest</button>
+                <button type="button" class="evt-btn" data-t="Messe">🏪 Messe</button>
+                <button type="button" class="evt-btn" data-t="Konsert">🎵 Konsert</button>
+                <button type="button" class="evt-btn" data-t="Annet">✦ Annet</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Foretrukket lokale</label>
+              <select class="form-select">
+                <option>Jeg er åpen / vet ikke ennå</option>
+                <option>Drammens Teater — klassisk</option>
+                <option>Union Scene — industriell</option>
+                <option>Begge interessante</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Antall gjester</label>
+              <div class="guest-wrap">
+                <div class="g-display"><span id="gn">50</span> <span>gjester</span></div>
+                <input type="range" id="gs" min="10" max="1200" value="50" step="10" />
+              </div>
+            </div>
+            <div class="form-nav"><span></span><button type="button" class="btn-next" id="n1">Neste <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+          </div>
+          <!-- Step 2 -->
+          <div class="form-step" id="fs2">
+            <div class="step-lbl">Steg 2 av 3</div>
+            <div class="step-title">Dato og detaljer</div>
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">Ønsket dato</label><input type="date" class="form-input" /></div>
+              <div class="form-group"><label class="form-label">Tidspunkt</label><select class="form-select"><option>Heldagsleie</option><option>Formiddag (08–12)</option><option>Ettermiddag (12–17)</option><option>Kveld (17–00)</option></select></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Budsjett (valgfritt)</label>
+              <select class="form-select">
+                <option value="">Ønsker ikke oppgi</option>
+                <option>Under kr 20 000</option>
+                <option>kr 20 000 – 50 000</option>
+                <option>kr 50 000 – 100 000</option>
+                <option>Over kr 100 000</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tilleggstjenester</label>
+              <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:4px">
+                <button type="button" class="evt-btn" style="font-size:0.64rem;padding:7px 11px">🍽️ Catering</button>
+                <button type="button" class="evt-btn" style="font-size:0.64rem;padding:7px 11px">🎵 Musikk</button>
+                <button type="button" class="evt-btn" style="font-size:0.64rem;padding:7px 11px">💡 Tekniker</button>
+                <button type="button" class="evt-btn" style="font-size:0.64rem;padding:7px 11px">🎨 Dekor</button>
+                <button type="button" class="evt-btn" style="font-size:0.64rem;padding:7px 11px">📸 Foto/Video</button>
+              </div>
+            </div>
+            <div class="form-nav"><button type="button" class="form-back" id="b2">← Tilbake</button><button type="button" class="btn-next" id="n2">Neste <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+          </div>
+          <!-- Step 3 -->
+          <div class="form-step" id="fs3">
+            <div class="step-lbl">Steg 3 av 3</div>
+            <div class="step-title">Kontaktinformasjon</div>
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">Fornavn</label><input type="text" class="form-input" placeholder="Ola" /></div>
+              <div class="form-group"><label class="form-label">Etternavn</label><input type="text" class="form-input" placeholder="Nordmann" /></div>
+            </div>
+            <div class="form-group"><label class="form-label">Bedrift</label><input type="text" class="form-input" placeholder="Bedriftsnavn AS" /></div>
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">E-post</label><input type="email" class="form-input" placeholder="ola@bedrift.no" /></div>
+              <div class="form-group"><label class="form-label">Telefon</label><input type="tel" class="form-input" placeholder="+47 xxx xx xxx" /></div>
+            </div>
+            <div class="form-group"><label class="form-label">Tilleggsinfo (valgfritt)</label><textarea class="form-textarea" placeholder="Fortell gjerne mer om arrangementet…"></textarea></div>
+            <div class="form-nav"><button type="button" class="form-back" id="b3">← Tilbake</button><button type="button" class="btn-next" id="sub">Send forespørsel ✓</button></div>
+          </div>
+          <!-- Success -->
+          <div class="form-success" id="fsuccess">
+            <div class="s-icon">✓</div>
+            <div class="s-title">Takk for din henvendelse!</div>
+            <p class="s-text">Vi svarer deg innen én arbeidsdag. Sjekk gjerne e-posten din — du bør ha fått en bekreftelse.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="f-brand">
+        <span class="wm">Drammen Scener</span>
+        <span class="sub">Drammens Teater &amp; Union Scene</span>
+        <p>Vi tilbyr Drammens mest unike lokaler for konferanser, fester og kulturarrangementer — midt i hjertet av byen.</p>
+        <div class="f-certs"><span class="f-cert">Miljøfyrtårn ✓</span><span class="f-cert">Tilgjengelighet ✓</span></div>
+      </div>
+      <div class="f-col">
+        <h4>Lokaler</h4>
+        <ul>
+          <li><a href="#venues">Drammens Teater</a></li>
+          <li><a href="#venues">Union Scene</a></li>
+          <li><a href="#rooms">Alle saler</a></li>
+          <li><a href="#packages">Pakker</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Om oss</h4>
+        <ul>
+          <li><a href="#">Vår historie</a></li>
+          <li><a href="#">Ansatte</a></li>
+          <li><a href="#">Miljøfyrtårn</a></li>
+          <li><a href="#">Ledige stillinger</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Kontakt</h4>
+        <div class="f-contact-info">
+          <div class="f-cr"><span class="lbl">Adresse</span><span class="val">Øvre Torggate 17, 3017 Drammen</span></div>
+          <div class="f-cr"><span class="lbl">Telefon</span><span class="val"><a href="tel:+4732213100" style="color:var(--mist)">32 21 31 00</a></span></div>
+          <div class="f-cr"><span class="lbl">E-post</span><span class="val"><a href="mailto:post@drammenscener.no" style="color:var(--mist)">post@drammenscener.no</a></span></div>
+          <div class="f-cr"><span class="lbl">Åpningstider</span><span class="val">Man–fre: 08:00–16:00</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Drammen Scener AS · Org.nr. 998 xxx xxx</p>
+      <div class="footer-legal"><a href="#">Personvern</a><a href="#">Tilgjengelighet</a><a href="#">Cookies</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, {threshold:0.1, rootMargin:'0px 0px -36px 0px'});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Nav scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', scrollY > 55);
+  }, {passive:true});
+
+  // Mobile nav
+  const ham = document.getElementById('ham');
+  const mob = document.getElementById('mobNav');
+  ham.addEventListener('click', () => mob.classList.toggle('open'));
+  document.querySelectorAll('.mob-lnk').forEach(a => a.addEventListener('click', () => mob.classList.remove('open')));
+
+  // Guest slider
+  const gs = document.getElementById('gs'), gn = document.getElementById('gn');
+  gs.addEventListener('input', () => {
+    gn.textContent = gs.value;
+    const p = ((gs.value - gs.min) / (gs.max - gs.min)) * 100;
+    gs.style.setProperty('--val', p + '%');
+  });
+
+  // Event type btns
+  document.querySelectorAll('.evt-btn').forEach(btn => {
+    btn.addEventListener('click', () => btn.classList.toggle('sel'));
+  });
+
+  // Multi-step form
+  let step = 1;
+  const goTo = n => {
+    document.getElementById('fs' + step).classList.remove('active');
+    document.getElementById('fp' + step).classList.remove('active');
+    step = n;
+    document.getElementById('fs' + step).classList.add('active');
+    for(let i=1;i<=step;i++) document.getElementById('fp'+i).classList.add('active');
+  };
+  document.getElementById('n1').addEventListener('click', () => goTo(2));
+  document.getElementById('n2').addEventListener('click', () => goTo(3));
+  document.getElementById('b2').addEventListener('click', () => goTo(1));
+  document.getElementById('b3').addEventListener('click', () => goTo(2));
+  document.getElementById('sub').addEventListener('click', () => {
+    for(let i=1;i<=3;i++) document.getElementById('fs'+i).classList.remove('active');
+    document.querySelector('.form-progress').style.display = 'none';
+    const s = document.getElementById('fsuccess');
+    s.style.display = 'block';
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const ans = item.querySelector('.faq-ans');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el => {
+        el.classList.remove('open');
+        el.querySelector('.faq-ans').style.maxHeight = '0';
+      });
+      if(!isOpen) { item.classList.add('open'); ans.style.maxHeight = ans.scrollHeight + 'px'; }
+    });
+  });
+
+  // Stagger tiles
+  document.querySelectorAll('.rooms-grid .room-tile, .pkg-grid .pkg-card, .testi-card').forEach((el,i) => {
+    el.style.transitionDelay = (i % 4 * 0.09) + 's';
+  });
+</script>
 </body>
 </html>

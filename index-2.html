@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drammen Scener - Drammens råeste lokaler!</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo">
+                <span class="logo-text">DRAMMEN SCENER</span>
+            </a>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="#lokaler">Våre lokaler og saler</a></li>
+                    <li><a href="#pakker">Våre pakker</a></li>
+                    <li><a href="#meny">Mat- og drikkemeny</a></li>
+                    <li class="has-dropdown">
+                        <a href="#om-oss">Om oss <span class="material-icons">expand_more</span></a>
+                        <ul class="dropdown">
+                            <li><a href="#om-oss">Om oss</a></li>
+                            <li><a href="#miljo">Miljøfyrtårn</a></li>
+                            <li><a href="#ansatte">Ansatte</a></li>
+                            <li><a href="#historie">Historie</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#kontakt" class="btn-contact">Kontakt oss</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn">
+                <span class="material-icons">menu</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Related Sites Bar -->
+    <div class="related-sites">
+        <div class="container">
+            <a href="#">Drammens Teater</a>
+            <a href="#">Union Scene</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-video-bg">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Drammens råeste lokaler!</h1>
+            <div class="hero-buttons">
+                <a href="#lokaler" class="btn btn-primary">Saler</a>
+                <a href="#pakker" class="btn btn-secondary">Pakker</a>
+                <a href="#meny" class="btn btn-secondary">Menyer</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introduction -->
+    <section class="intro">
+        <div class="container">
+            <h2>Opplev de mest imponerende lokalene i Drammen hos Drammen Scener!</h2>
+            <p>Vi tilbyr unike lokaler for alle typer arrangementer - fra intime sammenkomster til store konferanser og konserter.</p>
+        </div>
+    </section>
+
+    <!-- Venues Section -->
+    <section id="lokaler" class="venues">
+        <div class="container">
+            <h2 class="section-title">Våre lokaler</h2>
+            <div class="venues-grid">
+                <div class="venue-card">
+                    <div class="venue-image" style="background-color: #2D37B4;">
+                        <span class="venue-placeholder">Hovedscenen (Teatret)</span>
+                    </div>
+                    <div class="venue-info">
+                        <h3>Hovedscenen (Teatret)</h3>
+                        <p class="venue-capacity"><span class="material-icons">people</span> 100-450 personer</p>
+                        <p>Den klassiske hovedscenen i Drammens Teater med historisk atmosfære.</p>
+                        <a href="#" class="btn btn-small">Les mer</a>
+                    </div>
+                </div>
+
+                <div class="venue-card">
+                    <div class="venue-image" style="background-color: #FF4000;">
+                        <span class="venue-placeholder">Hovedscenen (Union)</span>
+                    </div>
+                    <div class="venue-info">
+                        <h3>Hovedscenen (Union)</h3>
+                        <p class="venue-capacity"><span class="material-icons">people</span> 120-1200 personer</p>
+                        <p>Vår største scene med plass til store konserter og arrangementer.</p>
+                        <a href="#" class="btn btn-small">Les mer</a>
+                    </div>
+                </div>
+
+                <div class="venue-card">
+                    <div class="venue-image" style="background-color: #1E2121;">
+                        <span class="venue-placeholder">Bakgården</span>
+                    </div>
+                    <div class="venue-info">
+                        <h3>Bakgården</h3>
+                        <p class="venue-capacity"><span class="material-icons">people</span> 350-750 personer</p>
+                        <p>Utendørs arena med unik atmosfære for sommerfester og konserter.</p>
+                        <a href="#" class="btn btn-small">Les mer</a>
+                    </div>
+                </div>
+
+                <div class="venue-card">
+                    <div class="venue-image" style="background-color: #FFE1CD;">
+                        <span class="venue-placeholder dark-text">Teatersalongene</span>
+                    </div>
+                    <div class="venue-info">
+                        <h3>Teatersalongene</h3>
+                        <p class="venue-capacity"><span class="material-icons">people</span> 40-100 personer</p>
+                        <p>Elegante rom perfekt for møter, workshops og mindre arrangementer.</p>
+                        <a href="#" class="btn btn-small">Les mer</a>
+                    </div>
+                </div>
+
+                <div class="venue-card">
+                    <div class="venue-image" style="background-color: #2D37B4;">
+                        <span class="venue-placeholder">Multisal 2</span>
+                    </div>
+                    <div class="venue-info">
+                        <h3>Multisal 2</h3>
+                        <p class="venue-capacity"><span class="material-icons">people</span> 70-200 personer</p>
+                        <p>Fleksibel sal som kan tilpasses ulike behov og arrangementstyper.</p>
+                        <a href="#" class="btn btn-small">Les mer</a>
+                    </div>
+                </div>
+
+                <div class="venue-card">
+                    <div class="venue-image" style="background-color: #FF4000;">
+                        <span class="venue-placeholder">Studioscenen</span>
+                    </div>
+                    <div class="venue-info">
+                        <h3>Studioscenen</h3>
+                        <p class="venue-capacity"><span class="material-icons">people</span> 182 personer</p>
+                        <p>Intim scene perfekt for mindre konserter og forestillinger.</p>
+                        <a href="#" class="btn btn-small">Les mer</a>
+                    </div>
+                </div>
+
+                <div class="venue-card">
+                    <div class="venue-image" style="background-color: #1E2121;">
+                        <span class="venue-placeholder">Glassfoajéen</span>
+                    </div>
+                    <div class="venue-info">
+                        <h3>Glassfoajéen</h3>
+                        <p class="venue-capacity"><span class="material-icons">people</span> 80-450 personer</p>
+                        <p>Moderne glasslokale med utsikt og fantastisk lysinnslipp.</p>
+                        <a href="#" class="btn btn-small">Les mer</a>
+                    </div>
+                </div>
+
+                <div class="venue-card">
+                    <div class="venue-image" style="background-color: #FFE1CD;">
+                        <span class="venue-placeholder dark-text">Centralen</span>
+                    </div>
+                    <div class="venue-info">
+                        <h3>Centralen</h3>
+                        <p class="venue-capacity"><span class="material-icons">people</span> 20-150 personer</p>
+                        <p>Sjarmerende lokale med historisk preg for intime arrangementer.</p>
+                        <a href="#" class="btn btn-small">Les mer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section id="pakker" class="packages">
+        <div class="container">
+            <h2 class="section-title">Våre pakker</h2>
+            <div class="packages-grid">
+                <div class="package-card">
+                    <div class="package-icon">
+                        <span class="material-icons">wb_sunny</span>
+                    </div>
+                    <h3>Sommerfest</h3>
+                    <p>Den perfekte sommerfesten med uteservering, grillmat og god stemning.</p>
+                    <a href="#" class="btn btn-outline">Se pakken</a>
+                </div>
+
+                <div class="package-card">
+                    <div class="package-icon">
+                        <span class="material-icons">celebration</span>
+                    </div>
+                    <h3>Eventer</h3>
+                    <p>Skreddersydde løsninger for alle typer arrangementer og feiringer.</p>
+                    <a href="#" class="btn btn-outline">Se pakken</a>
+                </div>
+
+                <div class="package-card">
+                    <div class="package-icon">
+                        <span class="material-icons">business_center</span>
+                    </div>
+                    <h3>Konferansepakke</h3>
+                    <p>Profesjonelle fasiliteter for møter, seminarer og konferanser.</p>
+                    <a href="#" class="btn btn-outline">Se pakken</a>
+                </div>
+
+                <div class="package-card">
+                    <div class="package-icon">
+                        <span class="material-icons">store</span>
+                    </div>
+                    <h3>Messe</h3>
+                    <p>Store lokaler perfekt for messer, utstillinger og produktlanseringer.</p>
+                    <a href="#" class="btn btn-outline">Se pakken</a>
+                </div>
+
+                <div class="package-card featured">
+                    <div class="package-icon">
+                        <span class="material-icons">ac_unit</span>
+                    </div>
+                    <h3>Julebord</h3>
+                    <p>Komplett julebordsopplevelse med tradisjonell mat og festlig stemning.</p>
+                    <a href="#" class="btn btn-primary">Se pakken</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="meny" class="menu-section">
+        <div class="container">
+            <h2 class="section-title">Mat- og drikkemeny</h2>
+            <div class="menu-intro">
+                <p>Vi tilbyr et bredt utvalg av mat og drikke til alle arrangementer. Fra enkle kaffepakker til komplette middagsmenyer.</p>
+            </div>
+            <div class="menu-categories">
+                <div class="menu-category">
+                    <span class="material-icons">restaurant</span>
+                    <h3>Middagsmenyer</h3>
+                    <p>Tre- og fireretter tilpasset ditt arrangement</p>
+                </div>
+                <div class="menu-category">
+                    <span class="material-icons">tapas</span>
+                    <h3>Fingermat</h3>
+                    <p>Perfekt for mingling og nettverksarrangementer</p>
+                </div>
+                <div class="menu-category">
+                    <span class="material-icons">local_bar</span>
+                    <h3>Drikkepakker</h3>
+                    <p>Fra mineralvann til eksklusive vinpakker</p>
+                </div>
+                <div class="menu-category">
+                    <span class="material-icons">coffee</span>
+                    <h3>Konferanseservering</h3>
+                    <p>Kaffe, te og pausemat</p>
+                </div>
+            </div>
+            <a href="#" class="btn btn-primary btn-large">Se full meny</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="om-oss" class="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content">
+                    <h2>Om Drammen Scener</h2>
+                    <p>Drammen Scener er Drammens fremste tilbyder av lokaler for arrangementer av alle slag. Vi har over 100 års erfaring med å skape uforglemmelige opplevelser.</p>
+                    <p>Vår portefølje inkluderer alt fra historiske teatersaler til moderne konferanselokaler - alle med førsteklasses service og fasiliteter.</p>
+                    <div class="about-features">
+                        <div class="feature">
+                            <span class="material-icons">verified</span>
+                            <span>Miljøfyrtårn-sertifisert</span>
+                        </div>
+                        <div class="feature">
+                            <span class="material-icons">accessibility</span>
+                            <span>Universell utforming</span>
+                        </div>
+                        <div class="feature">
+                            <span class="material-icons">support_agent</span>
+                            <span>Profesjonell service</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="image-placeholder">
+                        <span class="material-icons">theater_comedy</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="kontakt" class="contact">
+        <div class="container">
+            <h2 class="section-title">Kontakt oss</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Ta kontakt for et uforpliktende tilbud</h3>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <span class="material-icons">location_on</span>
+                            <p>Øvre Torggate 17, 3017 Drammen</p>
+                        </div>
+                        <div class="contact-item">
+                            <span class="material-icons">phone</span>
+                            <p>32 21 31 00</p>
+                        </div>
+                        <div class="contact-item">
+                            <span class="material-icons">email</span>
+                            <p>post@drammenscener.no</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Navn</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-post</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefon</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Melding</label>
+                        <textarea id="message" name="message" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-large">Send forespørsel</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>Drammen Scener</h4>
+                    <p>Øvre Torggate 17<br>3017 Drammen</p>
+                    <p>Org.nr: 894922672</p>
+                    <p>Tlf: 32 21 31 00</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Hurtiglenker</h4>
+                    <ul>
+                        <li><a href="#">Hjem</a></li>
+                        <li><a href="#lokaler">Lokaler</a></li>
+                        <li><a href="#meny">Meny</a></li>
+                        <li><a href="#pakker">Pakker</a></li>
+                        <li><a href="#ansatte">Ansatte</a></li>
+                        <li><a href="#">Ledige stillinger</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Hovedsponsor</h4>
+                    <div class="sponsor-logo">
+                        <span>Sparebanken Øst</span>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Partnere</h4>
+                    <div class="partners">
+                        <span>Aass Bryggeri</span>
+                        <span>Næringsforeningen</span>
+                        <span>Matfikseren</span>
+                        <span>Catapult Film</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Drammen Scener. Alle rettigheter reservert.</p>
+                <div class="footer-links">
+                    <a href="#">Personvern</a>
+                    <a href="#">Tilgjengelighet</a>
+                    <a href="#miljo">Miljøfyrtårn</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
